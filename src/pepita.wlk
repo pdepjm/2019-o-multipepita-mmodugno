@@ -33,6 +33,7 @@ object pepita {
 		self.vola(5)
 	}
 	
+	
 	method haceLoQueQuieras(){
 		if(self.estaCansada()) {self.come(alpiste)}
 		if(self.estaFeliz()) {self.vola(8)}
@@ -52,20 +53,23 @@ object alpiste {
 }
 
 object manzana {
-	method energiaQueOtorga() { 
-		return 50
+	method energiaQueOtorga() = 50
 	}	
-}
+
 
 object mijo {
-	var energia = 20 //Si no se moja, esta seco
-	method mojarse() {energia = 15}
-	method secarse() {energia = 20}
-	method energiaQueOtorga() { return energia}
+	var estaMojado = false
+	method mojarse() {estaMojado = true}
+	method secarse() {estaMojado = false}
+	
+	method energiaQueOtorga() { 
+		return if(estaMojado) 15 
+		else 20
+	}
 }
 
 
-object canelones {
+object canelo {
 	var energia = 20
 	method ponerSalsa() {energia += 5}
 	method ponerQueso() {energia += 7}
@@ -73,6 +77,32 @@ object canelones {
 	method sacarQueso() {energia -= 7}
 }
 
+object canelones{
+	var tieneSalsa = false
+	var tieneQueso = false
+	var energia = 20
+	
+	
+	method ponerSalsa() {
+		tieneSalsa = true
+		energia += 5
+	}
+	method sacarSalsa() {
+		tieneSalsa = false
+		energia -=5
+	}
+	method ponerQueso() {
+		tieneQueso = true
+		energia +=7
+	}
+	method sacarQueso() {
+		tieneQueso = false
+		energia -=7
+	}
+	
+	method energiaQueOtorga()  { return energia }
+	
+}
 
 object roque{
 	method entrenar(ave){
